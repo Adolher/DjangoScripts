@@ -1,12 +1,12 @@
 #!/bin/bash
 
 #   Variable Data
-ProjectName="ProjectAdalher"     # supplement your Project Name
-DomainName="adalher.net"      # supplement your Domain name
-Git_ProjectURL="https://github.com/Adolher/ProjectAdalher"  # supplement the repository url
-AdminEMail="admin@adalher.net"      # supplement your E-Mail for ssl-certificate
-RootPath="/webapps"       # supplement your Path to your websites
-ALLOWED_HOSTS="192.168.27.30"
+ProjectName=""     # supplement your Project Name
+DomainName=""      # supplement your Domain name
+Git_ProjectURL=""  # supplement the repository url
+AdminEMail=""      # supplement your E-Mail for ssl-certificate
+RootPath=""       # supplement your Path to your websites
+ALLOWED_HOSTS=""
 
 #   Constant Data
 ProjectPath=$RootPath/$ProjectName
