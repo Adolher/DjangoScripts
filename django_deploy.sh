@@ -162,3 +162,4 @@ service nginx status
 
 supervisorctl restart $ProjectName
 supervisorctl status
+echo "\nCheck your Router -> disable the Teredo-Filter!"
