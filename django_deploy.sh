@@ -65,7 +65,8 @@ upstream $ProjectName.app_server {
 
 server {
     listen 80;
-    server_name $DomainName;
+    listen [::]:80;
+    server_name .$DomainName;
     
     access_log $ProjectPath/logs/access.log;
     error_log $ProjectPath/logs/error.log;
