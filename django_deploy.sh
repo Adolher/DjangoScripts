@@ -123,11 +123,12 @@ git clone $Git_ProjectURL
 cd $ProjectPath
 python3 -m venv venv
 source venv/bin/activate
-pip install -r $RootPath/$ProjectName/requirements.txt     # Todo: Pfad überprüfen
+pip install -r $RootPath/$ProjectName/requirements.txt
 
 #   2.2.1 migrate Database          # Todo
 cd $ProjectPath/$ProjectName
-#python3 manage.py migrate
+python3 manage.py migrate
+python3 manage.py makemigrations
 
 #   2.2.2 install and prepare gunicorn
 pip install gunicorn
