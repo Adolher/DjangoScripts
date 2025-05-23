@@ -7,11 +7,14 @@ Git_ProjectURL=""  # supplement the repository url
 AdminEMail=""      # supplement your E-Mail for ssl-certificate
 RootPath=""       # supplement your Path to your websites
 ALLOWED_HOSTS=""
+ProjectDBUserPassword=""
 
 #   Constant Data
 ProjectPath=$RootPath/$ProjectName
 ProjectUser="$ProjectName"_user
 ProjectGroup="$ProjectName"_group
+ProjectDB="$ProjectName"_db
+ProjectDBUser="$ProjectName"_db_user
 
 #   File Data
 GunicornStart=$(cat <<EOF
@@ -99,6 +102,7 @@ EOF
 #   1.1 install packages
 
 # apt update && upgrade
+#apt install postgresql
 #apt install nginx
 #apt install certbot
 #apt install python3
@@ -125,8 +129,17 @@ python3 -m venv venv
 source venv/bin/activate
 pip install -r $RootPath/$ProjectName/requirements.txt
 
-#   2.2.1 migrate Database          # Todo
+#   2.2.1 Database Operations          # Todo
 cd $ProjectPath/$ProjectName
+
+sudo -i -u postgres psql -c "CREATE DATABASE $ProjectDB;"
+sudo -i -u postgres psql -c "CREATE USER $ProjectDBUser WITH PASSWORD $ProjectDBUserPassword;"
+sudo -i -u postgres psql -c "ALTER ROLE $ProjectDBUser SET client_encoding TO 'utf8';"
+sudo -i -u postgres psql -c "ALTER ROLE $ProjectDBUser SET default_transaction_isolation TO 'read committed';"
+sudo -i -u postgres psql -c "ALTER ROLE $ProjectDBUser SET timezone TO 'UTC';"
+sudo -i -u postgres psql -c "GRANT ALL PRIVILEGES ON DATABASE $ProjectDB TO $ProjectDBUser;"
+sudo -i -u postgres psql -c "ALTER DATABASE $ProjectDB OWNER TO $ProjectDBUser;"
+
 python3 manage.py migrate
 python3 manage.py makemigrations
 

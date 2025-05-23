@@ -217,6 +217,8 @@ EOF
 
 Requirements=$(cat <<EOF
 Django
+python-dotenv
+psycopg2-binary
 EOF
 )
 
